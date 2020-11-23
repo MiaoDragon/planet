@@ -49,7 +49,9 @@ struct Config {
   // reachable when a state is added to the tree
   // NOTE/TODO(Wil): If the same state is used for multiple transitions in the same universe &
   // config, then this could cause bugs
-  tsl::robin_map<HashableStateSpace::StateType, std::pair<UniverseSig, ConfigSig>>
+//   tsl::robin_map<HashableStateSpace::StateType, std::pair<UniverseSig, ConfigSig>>
+//   state_transitions;
+  tsl::robin_map<HashableStateSpace::StateType, Vec<std::pair<UniverseSig, ConfigSig>>>
   state_transitions;
   Vec<Pose> valid_poses;
   bool actually_reached = false;

@@ -1,0 +1,686 @@
+[
+    {
+        "base_pose": {
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": 0.0,
+            "l_shoulder_lift_joint": 0.0,
+            "l_shoulder_pan_joint": 0.5,
+            "l_upper_arm_roll_joint": 0.0,
+            "l_wrist_flex_joint": -0.11,
+            "r_elbow_flex_joint": 0.0,
+            "r_shoulder_lift_joint": 0.0,
+            "r_shoulder_pan_joint": 0.5,
+            "r_upper_arm_roll_joint": 0.0,
+            "r_wrist_flex_joint": -0.11
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.1,
+                    0.5,
+                    0.767
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.2,
+                    -0.3,
+                    0.767
+                ]
+            }
+        }
+    },
+    {
+        "base_pose": {
+            "rotation": [
+                -0.0,
+                -0.0,
+                -0.7843237045011386,
+                0.6203517764604294
+            ],
+            "translation": [
+                0.6236388098863639,
+                0.28019153964985,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": -1.2550988637120775,
+            "l_shoulder_lift_joint": 0.478719830375527,
+            "l_shoulder_pan_joint": 0.6704544245821564,
+            "l_upper_arm_roll_joint": 1.2205837135439264,
+            "l_wrist_flex_joint": -2.1339260454255915,
+            "r_elbow_flex_joint": -2.10233774329721,
+            "r_shoulder_lift_joint": -0.4494703535356196,
+            "r_shoulder_pan_joint": -1.3701608175673878,
+            "r_upper_arm_roll_joint": 0.23067111831235732,
+            "r_wrist_flex_joint": -0.02672183492182123
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.1,
+                    0.5,
+                    0.767
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.2,
+                    -0.3,
+                    0.767
+                ]
+            }
+        }
+    },
+    {
+        "base_pose": {
+            "rotation": [
+                -0.0,
+                -0.0,
+                -0.7494452544068375,
+                0.6620663189190873
+            ],
+            "translation": [
+                -0.9815470272970253,
+                0.8379141644361825,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": -0.6730968146464489,
+            "l_shoulder_lift_joint": -0.4045081476724884,
+            "l_shoulder_pan_joint": 0.5952174579026122,
+            "l_upper_arm_roll_joint": 3.249537065959112,
+            "l_wrist_flex_joint": -0.05802415128186178,
+            "r_elbow_flex_joint": -0.9683464234968975,
+            "r_shoulder_lift_joint": 0.07953802475113836,
+            "r_shoulder_pan_joint": -0.354560016188731,
+            "r_upper_arm_roll_joint": 0.23147042042194776,
+            "r_wrist_flex_joint": -1.8148579793666864
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.1,
+                    0.5,
+                    0.767
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.2,
+                    -0.3,
+                    0.767
+                ]
+            }
+        }
+    },
+    {
+        "base_pose": {
+            "rotation": [
+                -0.0,
+                -0.0,
+                -0.9028551911696975,
+                0.42994476828765926
+            ],
+            "translation": [
+                0.9523952141607133,
+                1.4396983644504653,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": -0.10285260680929698,
+            "l_shoulder_lift_joint": -0.2630899241044396,
+            "l_shoulder_pan_joint": 1.4416507858075969,
+            "l_upper_arm_roll_joint": 3.1362559908367746,
+            "l_wrist_flex_joint": -1.1009938422683498,
+            "r_elbow_flex_joint": -0.46815878449640147,
+            "r_shoulder_lift_joint": -0.19333002683761563,
+            "r_shoulder_pan_joint": -0.08728497456332462,
+            "r_upper_arm_roll_joint": -0.06096530459180194,
+            "r_wrist_flex_joint": -1.9442279962936828
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.1,
+                    0.5,
+                    0.767
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.2,
+                    -0.3,
+                    0.767
+                ]
+            }
+        }
+    },
+    {
+        "action": [
+            "pickup",
+            "gs1",
+            "table1",
+            "lgrippertoolframe"
+        ],
+        "base_pose": {
+            "rotation": [
+                -0.0,
+                -0.0,
+                -0.838193185652193,
+                0.5453734349289744
+            ],
+            "translation": [
+                0.42393531662998096,
+                -0.16139112251133325,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": 0.0,
+            "l_shoulder_lift_joint": 0.181496105191839,
+            "l_shoulder_pan_joint": 2.1341310151940247,
+            "l_upper_arm_roll_joint": 3.7122427081973743,
+            "l_wrist_flex_joint": -0.9619607167166461,
+            "r_elbow_flex_joint": 0.0,
+            "r_shoulder_lift_joint": 0.261153258034003,
+            "r_shoulder_pan_joint": 0.7146018366025517,
+            "r_upper_arm_roll_joint": -0.2606074526052927,
+            "r_wrist_flex_joint": -0.6730339993233511
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.1,
+                    0.5,
+                    0.767
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    0.40818326964636875,
+                    0.46862710416457526,
+                    0.009942997740058055,
+                    0.7833748734922926
+                ],
+                "translation": [
+                    1.433654841090417,
+                    -0.020757987097138927,
+                    0.7801126490451739
+                ]
+            }
+        }
+    },
+    {
+        "base_pose": {
+            "rotation": [
+                -0.0,
+                -0.0,
+                -0.3222570916693135,
+                0.9466521889632092
+            ],
+            "translation": [
+                1.193403476874149,
+                1.7116864398662166,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": -0.46423226300495246,
+            "l_shoulder_lift_joint": -0.4606648441218672,
+            "l_shoulder_pan_joint": 0.14074909030354266,
+            "l_upper_arm_roll_joint": 1.9013876661347744,
+            "l_wrist_flex_joint": -1.9944984704292845,
+            "r_elbow_flex_joint": -1.6763248675133928,
+            "r_shoulder_lift_joint": -0.03564161388449005,
+            "r_shoulder_pan_joint": -0.32507086255888495,
+            "r_upper_arm_roll_joint": -2.2248259760929674,
+            "r_wrist_flex_joint": -1.962690216760561
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.1,
+                    0.5,
+                    0.767
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    -0.14564460381426564,
+                    0.5676976783735967,
+                    0.6274051373538758,
+                    0.512708288377493
+                ],
+                "translation": [
+                    1.8023057853822457,
+                    1.6572268685157128,
+                    1.366554290374412
+                ]
+            }
+        }
+    },
+    {
+        "base_pose": {
+            "rotation": [
+                0.0,
+                0.0,
+                0.6799567836838403,
+                0.7332521887606795
+            ],
+            "translation": [
+                0.47667454708608925,
+                -0.6329158560609911,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": -0.4305625366267497,
+            "l_shoulder_lift_joint": 0.28888863854530794,
+            "l_shoulder_pan_joint": 0.3818079906494898,
+            "l_upper_arm_roll_joint": 2.0252108835969667,
+            "l_wrist_flex_joint": -1.8815777136549863,
+            "r_elbow_flex_joint": -1.7186557044315194,
+            "r_shoulder_lift_joint": 0.1907881374673165,
+            "r_shoulder_pan_joint": 0.1666109156505372,
+            "r_upper_arm_roll_joint": -3.431455765327862,
+            "r_wrist_flex_joint": -1.8911634136580284
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.1,
+                    0.5,
+                    0.767
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    0.23585690867779724,
+                    0.1655170728948098,
+                    0.02911089313656501,
+                    0.9571458473556048
+                ],
+                "translation": [
+                    0.2222998199575509,
+                    0.1389398534735764,
+                    0.9469538188166117
+                ]
+            }
+        }
+    },
+    {
+        "action": [
+            "putdown",
+            "gs1",
+            "table4",
+            "lgrippertoolframe"
+        ],
+        "base_pose": {
+            "rotation": [
+                -0.0,
+                -0.0,
+                -1.0,
+                6.123233995736766e-17
+            ],
+            "translation": [
+                0.6435676650449621,
+                -1.2801025359028766,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": -0.12895722881624003,
+            "l_shoulder_lift_joint": -0.11620040421276329,
+            "l_shoulder_pan_joint": 0.8669478213302234,
+            "l_upper_arm_roll_joint": 1.518813492379146,
+            "l_wrist_flex_joint": -0.4448630215429072,
+            "r_elbow_flex_joint": -0.6829505092705906,
+            "r_shoulder_lift_joint": 0.8805612987779942,
+            "r_shoulder_pan_joint": -0.5948527731033341,
+            "r_upper_arm_roll_joint": -1.0999491779266526,
+            "r_wrist_flex_joint": -0.5056216679249264
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.1,
+                    0.5,
+                    0.767
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    0.8215707291569725,
+                    -0.35397107111969706,
+                    -0.38587527720124665,
+                    0.22544686346834797
+                ],
+                "translation": [
+                    -0.1900871934614035,
+                    -2.186408046806771,
+                    0.9409025777213554
+                ]
+            }
+        }
+    },
+    {
+        "base_pose": {
+            "rotation": [
+                0.0,
+                0.0,
+                0.9330428720826577,
+                0.35976519961739667
+            ],
+            "translation": [
+                0.3459612188690566,
+                -0.9228473990399224,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": -0.7514853408938873,
+            "l_shoulder_lift_joint": 0.2743743338746001,
+            "l_shoulder_pan_joint": -0.044072105290949515,
+            "l_upper_arm_roll_joint": 2.6299243242939845,
+            "l_wrist_flex_joint": -1.565634317289144,
+            "r_elbow_flex_joint": -0.3771673430141198,
+            "r_shoulder_lift_joint": -0.024919625712461257,
+            "r_shoulder_pan_joint": -1.4921035444919346,
+            "r_upper_arm_roll_joint": -0.4629363114162306,
+            "r_wrist_flex_joint": -1.033664126434724
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.1,
+                    0.5,
+                    0.767
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    -0.3427889239909418,
+                    0.21053731473255802,
+                    0.30038657330391205,
+                    0.864833914270867
+                ],
+                "translation": [
+                    -0.7919664223790019,
+                    -2.037928750778482,
+                    0.9723759588756736
+                ]
+            }
+        }
+    },
+    {
+        "action": [
+            "pickup",
+            "bs1",
+            "table1",
+            "lgrippertoolframe"
+        ],
+        "base_pose": {
+            "rotation": [
+                0.0,
+                0.0,
+                0.09437549200847829,
+                0.9955366726083764
+            ],
+            "translation": [
+                1.4421499582334143,
+                0.4320067954484106,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": -1.4328217802647722,
+            "l_shoulder_lift_joint": -0.5236,
+            "l_shoulder_pan_joint": 0.2397410854273423,
+            "l_upper_arm_roll_joint": 1.7924632506834093,
+            "l_wrist_flex_joint": -0.42255955831204,
+            "r_elbow_flex_joint": -0.39695766483409084,
+            "r_shoulder_lift_joint": 1.0493012640617234,
+            "r_shoulder_pan_joint": -0.7628652662545716,
+            "r_upper_arm_roll_joint": -1.3293836432327724,
+            "r_wrist_flex_joint": -0.46278232217982324
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    2.1,
+                    0.5,
+                    0.767
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    0.23780289595513712,
+                    -0.1985408257506302,
+                    0.23971908213175044,
+                    0.9200902590765317
+                ],
+                "translation": [
+                    -0.4456633506430654,
+                    -2.128335291405418,
+                    0.7989441012452188
+                ]
+            }
+        }
+    },
+    {
+        "action": [
+            "putdown",
+            "bs1",
+            "table3",
+            "lgrippertoolframe"
+        ],
+        "base_pose": {
+            "rotation": [
+                -0.0,
+                -0.0,
+                -0.18334644284503052,
+                0.9830483619314332
+            ],
+            "translation": [
+                -1.494609858604953,
+                1.720766357562475,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": -0.9652089856250187,
+            "l_shoulder_lift_joint": 0.07809361090742102,
+            "l_shoulder_pan_joint": 1.1543543057636365,
+            "l_upper_arm_roll_joint": 1.1006757721078264,
+            "l_wrist_flex_joint": 0.0,
+            "r_elbow_flex_joint": 0.0,
+            "r_shoulder_lift_joint": 0.1210262384527776,
+            "r_shoulder_pan_joint": -0.2872539571295999,
+            "r_upper_arm_roll_joint": -2.6920296057302373,
+            "r_wrist_flex_joint": 0.0
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    -0.2417342126684668,
+                    -0.42081914136114573,
+                    -0.23901019810862778,
+                    0.8410409894230478
+                ],
+                "translation": [
+                    -0.7227733411748436,
+                    2.3673351647244236,
+                    1.0771686594137053
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    0.23780289595513712,
+                    -0.1985408257506302,
+                    0.23971908213175044,
+                    0.9200902590765317
+                ],
+                "translation": [
+                    -0.4456633506430654,
+                    -2.128335291405418,
+                    0.7989441012452188
+                ]
+            }
+        }
+    },
+    {
+        "base_pose": {
+            "rotation": [
+                -0.0,
+                -0.0,
+                -0.9945898567049541,
+                0.1038798196938115
+            ],
+            "translation": [
+                -1.1132774242104715,
+                -0.16527878668209306,
+                0.0
+            ]
+        },
+        "joints": {
+            "l_elbow_flex_joint": -0.15991174075163261,
+            "l_shoulder_lift_joint": -0.42551072995201206,
+            "l_shoulder_pan_joint": 1.7666073499209332,
+            "l_upper_arm_roll_joint": 3.8714240454697,
+            "l_wrist_flex_joint": -0.33704391962934577,
+            "r_elbow_flex_joint": -0.0712125351525521,
+            "r_shoulder_lift_joint": -0.23034429667673845,
+            "r_shoulder_pan_joint": -1.4855618272901145,
+            "r_upper_arm_roll_joint": -2.8240039367955916,
+            "r_wrist_flex_joint": -0.40841503995801887
+        },
+        "object_poses": {
+            "bs1": {
+                "rotation": [
+                    -0.16216421607351017,
+                    0.9858967053534688,
+                    -0.034343878655372397,
+                    0.023042382631675316
+                ],
+                "translation": [
+                    -0.7367201231633238,
+                    2.4048666614222327,
+                    0.6970569365222563
+                ]
+            },
+            "gs1": {
+                "rotation": [
+                    0.23780289595513712,
+                    -0.1985408257506302,
+                    0.23971908213175044,
+                    0.9200902590765317
+                ],
+                "translation": [
+                    -0.4456633506430654,
+                    -2.128335291405418,
+                    0.7989441012452188
+                ]
+            }
+        }
+    }
+]

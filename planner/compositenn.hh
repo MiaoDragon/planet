@@ -42,17 +42,19 @@ struct CompositeNearestNeighbors : public ompl::NearestNeighbors<MotionType> {
     if (is_new) {
       nn_it.value()->setDistanceFunction(this->distFun_);
     }
-
     nn_it.value()->add(data);
     const auto& [uni_data, cf_data] = uni_map->get_data(child_signature);
     const auto& transition_sig_it   = cf_data->state_transitions.find(
     *data->state->template as<cspace::CompositeSpace::StateType>());
-    if (transition_sig_it != cf_data->state_transitions.end()) {
-      auto [transitions_it, _] =
-      transition_motions.try_emplace(transition_sig_it->second, Vec<MotionType>{});
-      transitions_it.value().push_back(data);
+    if (transition_sig_it != cf_data->state_transitions.end()) {  // if I can find one transition starting from data
+      // add the transition from data -> target condition to the list
+      for (auto& transition_sig : transition_sig_it->second)
+      {
+        auto [transitions_it, _] =
+        transition_motions.try_emplace(transition_sig, Vec<MotionType>{});
+        transitions_it.value().push_back(data);
+      }
     }
-
     ++counter;
   }
 

@@ -109,12 +109,11 @@ UniverseMap::add_transition(const std::pair<const UniverseSig&, const ConfigSig&
   const auto& [_sig, viable_transitions] = *viable_transitions_it;
   viable_transitions->known_states.insert(*at_state);
   viable_transitions->actions.push_back(with_action);
-  if (fplus::map_contains(c1_data->state_transitions, *at_state)) {
-    throw std::runtime_error("State is re-used for multiple transitions in the same universe & "
-                             "config! You have bugs to fix");
-  }
-
-  c1_data->state_transitions[*at_state] = to;
+//   if (fplus::map_contains(c1_data->state_transitions, *at_state)) {
+//     throw std::runtime_error("State is re-used for multiple transitions in the same universe & "
+//                              "config! You have bugs to fix");
+//   }
+  c1_data->state_transitions[*at_state].emplace_back(to);
   return {u2_data.get(), c2_data.get()};
 }
 
@@ -144,12 +143,18 @@ void UniverseMap::added_state(HashableStateSpace::StateType* state) {
   const auto& [u1_data, c1_data] = get_data({u1_sig, c1_sig});
   const auto& transition_it      = c1_data->state_transitions.find(*state);
   if (transition_it != c1_data->state_transitions.end()) {
-    const auto& [u2_sig, c2_sig]   = transition_it->second;
-    const auto& [u2_data, c2_data] = get_data({u2_sig, c2_sig});
-    if (!u2_data->actually_reached || !c2_data->actually_reached) {
-      u2_data->actually_reached = true;
-      c2_data->actually_reached = true;
-      add_actions(u2_data, c2_data);
+    // if found
+    const auto& sig_pairs = transition_it->second;
+    for (const auto& sig_pair : sig_pairs)
+    {
+        const auto& [u2_sig, c2_sig]   = sig_pair;
+        const auto& [u2_data, c2_data] = get_data({u2_sig, c2_sig});
+        if (!u2_data->actually_reached || !c2_data->actually_reached) {
+        u2_data->actually_reached = true;
+        c2_data->actually_reached = true;
+        add_actions(u2_data, c2_data);
+        }
+
     }
   }
 }

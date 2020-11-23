@@ -85,6 +85,7 @@ planner_lib = static_library('plannerlib',
   'planner/predicate-impl.cc',
   'planner/predicate.cc',
   'planner/rrt.cc',
+  'planner/rrtstar.cc',
   'planner/sampler.cc',
   'planner/solver.cc',
   'planner/universe_map.cc',
@@ -103,3 +104,5 @@ output = declare_dependency(link_with: output_lib, include_directories: 'output'
 
 # Main executable
 executable('planet', 'planet.cc', dependencies: [common, input, output, planner, toml])
+executable('planet_gen_traj', 'planet_gen_traj.cc', dependencies: [common, input, output, planner, toml])
+

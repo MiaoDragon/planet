@@ -1,0 +1,1 @@
+python ml_data_gen.py --NP 2 --sp 0 --path /home/yinglong/Documents/research/task_motion_planning/data/planet_data/

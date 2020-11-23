@@ -315,6 +315,8 @@ void TampSampler::heuristic_sample(ob::State* state) {
     return;
   }
 
+  // cstate is updated, and hence state is updated to the precondition set.
+  
   // Update the maps
   auto state_copy = space_->cloneState(state);
   action_log->emplace(state_copy, action.get());

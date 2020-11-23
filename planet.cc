@@ -11,7 +11,12 @@
 #include <ompl/base/PlannerData.h>
 #include <ompl/base/PlannerTerminationCondition.h>
 #include <ompl/geometric/planners/rrt/RRT.h>
+#include <ompl/geometric/planners/rrt/RRTstar.h>
 #include <ompl/geometric/PathSimplifier.h>
+
+#include <ompl/base/State.h>
+#include <ompl/datastructures/NearestNeighbors.h>
+#include <ompl/datastructures/NearestNeighborsGNATNoThreadSafety.h>
 
 #include <chrono>
 #include <fstream>
@@ -37,6 +42,8 @@
 #include "planner_utils.hh"
 #include "predicate.hh"
 #include "rrt.hh"
+#include "rrtstar.hh"
+
 #include "sampler.hh"
 #include "robot.hh"
 #include "specification.hh"
@@ -53,6 +60,7 @@ namespace scene         = input::scene;
 namespace specification = input::specification;
 namespace util          = planner::util;
 namespace rrt           = planner::rrt;
+namespace rrtstar           = planner::rrtstar;
 namespace pred          = symbolic::predicate;
 
 #define FAIL(msg)                          \
@@ -289,11 +297,17 @@ int main(int argc, char* argv[]) {
 
     // Create and run planner
     auto planner          = std::make_shared<rrt::CompositeRRT>(si IF_ACTION_LOG((, graph_log)));
+    //auto planner          = std::make_shared<rrtstar::CompositeRRTstar>(si IF_ACTION_LOG((, graph_log)));
     planner->universe_map = &universe_map;
     planner->setProblemDefinition(problem_def);
     log->info("Dim is: {}", domain.num_eqclass_dims + domain.num_symbolic_dims);
     planner->setNearestNeighbors<planner::nn::CompositeNearestNeighbors>();
-    double time_limit = 20.0;
+    //planner->setNearestNeighbors<ompl::NearestNeighborsGNATNoThreadSafety>();
+    //planner->setKNearest(0);
+    //planner->setDelayCC(0);
+    //planner->setTreePruning(0);
+    
+    double time_limit = 500.0;
     std::chrono::high_resolution_clock::time_point start;
     std::chrono::high_resolution_clock::time_point end;
     int iters                   = -1;
@@ -332,7 +346,7 @@ int main(int argc, char* argv[]) {
       log->info("Invalid end states: {}\nInvalid interpolation states: {}",
                 planner::motion::invalid_end,
                 planner::motion::invalid_interp);
-      log->info("States too far from the tree: {}", planner::rrt::num_too_far);
+      log->info("States too far from the tree: {}", planner::rrtstar::num_too_far);
 
       if (v_count > 0) {
         // Get state config/uni histogram

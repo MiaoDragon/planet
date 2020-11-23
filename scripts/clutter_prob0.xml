@@ -1,0 +1,182 @@
+<?xml version="1.0" ?>
+<problem>
+  <objects>
+    <obj>
+      <name>table1</name>
+      <geom>table.obj</geom>
+      <pose>-0.000 -1.000 0.000 2.200 1.000 -0.000 0.000 0.000 0.000 0.000 1.000 0.000</pose>
+      <moveable>false</moveable>
+      <sssp>
+        <xmin>-0.75</xmin>
+        <xmax>0.75</xmax>
+        <ymin>-0.35</ymin>
+        <ymax>0.35</ymax>
+        <zmin>0.767</zmin>
+        <zmax>0.767</zmax>
+      </sssp>
+      <attachments>
+        <name>blue0</name>
+        <name>blue1</name>
+        <name>green0</name>
+      </attachments>
+    </obj>
+    <obj>
+      <name>table2</name>
+      <geom>table.obj</geom>
+      <pose>0.000 -1.000 0.000 -2.200 1.000 -0.000 0.000 0.000 0.000 0.000 1.000 0.000</pose>
+      <moveable>false</moveable>
+      <sssp>
+        <xmin>-0.75</xmin>
+        <xmax>0.75</xmax>
+        <ymin>-0.35</ymin>
+        <ymax>0.35</ymax>
+        <zmin>0.767</zmin>
+        <zmax>0.767</zmax>
+      </sssp>
+      <attachments>
+        <name>green1</name>
+      </attachments>
+    </obj>
+    <obj>
+      <name>table3</name>
+      <geom>table.obj</geom>
+      <pose>1.000 0.000 0.000 0.000 0.000 1.000 0.000 2.200 0.000 0.000 1.000 0.000</pose>
+      <moveable>false</moveable>
+      <sssp>
+        <xmin>-0.75</xmin>
+        <xmax>0.75</xmax>
+        <ymin>-0.35</ymin>
+        <ymax>0.35</ymax>
+        <zmin>0.767</zmin>
+        <zmax>0.767</zmax>
+      </sssp>
+    </obj>
+    <obj>
+      <name>table4</name>
+      <geom>table.obj</geom>
+      <pose>1.000 0.000 0.000 0.000 0.000 1.000 0.000 -2.200 0.000 0.000 1.000 0.000</pose>
+      <moveable>false</moveable>
+      <sssp>
+        <xmin>-0.75</xmin>
+        <xmax>0.75</xmax>
+        <ymin>-0.35</ymin>
+        <ymax>0.35</ymax>
+        <zmin>0.767</zmin>
+        <zmax>0.767</zmax>
+      </sssp>
+    </obj>
+    <obj>
+      <name>arena</name>
+      <geom>arena.obj</geom>
+      <pose>1.000 0.000 0.000 0.000 0.000 1.000 0.000 0.000 0.000 0.000 1.000 0.200</pose>
+      <moveable>false</moveable>
+    </obj>
+    <obj>
+      <name>blue0</name>
+      <geom>stick_blue.obj</geom>
+      <pose>1.0 0.0 0.0 2.139078036506261 0.0 1.0 0.0 -0.23317491196082812 0.0 0.0 1.0 0.767</pose>
+      <moveable>true</moveable>
+      <grasps>
+        <gc type="side">
+          <template>1.000 0.000 0.000 0.000 0.000 1.000 0.000 0.000 0.000 0.000 1.000 0.120</template>
+          <axis>0.0 0.0 1.0</axis>
+        </gc>
+      </grasps>
+      <sop>
+        <template>1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0</template>
+        <axis>0.0 0.0 1.0</axis>
+        <distance>0.0</distance>
+      </sop>
+    </obj>
+    <obj>
+      <name>blue1</name>
+      <geom>stick_blue.obj</geom>
+      <pose>1.0 0.0 0.0 2.1327440004302525 0.0 1.0 0.0 0.118845355573171 0.0 0.0 1.0 0.767</pose>
+      <moveable>true</moveable>
+      <grasps>
+        <gc type="side">
+          <template>1.000 0.000 0.000 0.000 0.000 1.000 0.000 0.000 0.000 0.000 1.000 0.120</template>
+          <axis>0.0 0.0 1.0</axis>
+        </gc>
+      </grasps>
+      <sop>
+        <template>1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0</template>
+        <axis>0.0 0.0 1.0</axis>
+        <distance>0.0</distance>
+      </sop>
+    </obj>
+    <obj>
+      <name>green0</name>
+      <geom>stick_green.obj</geom>
+      <pose>1.0 0.0 0.0 2.0780077184780152 0.0 1.0 0.0 0.017655967500342706 0.0 0.0 1.0 0.767</pose>
+      <moveable>true</moveable>
+      <grasps>
+        <gc type="side">
+          <template>1.000 0.000 0.000 0.000 0.000 1.000 0.000 0.000 0.000 0.000 1.000 0.120</template>
+          <axis>0.0 0.0 1.0</axis>
+        </gc>
+      </grasps>
+      <sop>
+        <template>1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0</template>
+        <axis>0.0 0.0 1.0</axis>
+        <distance>0.0</distance>
+      </sop>
+    </obj>
+    <obj>
+      <name>green1</name>
+      <geom>stick_green.obj</geom>
+      <pose>1.0 0.0 0.0 -2.319668673632374 0.0 1.0 0.0 0.01218066504112958 0.0 0.0 1.0 0.767</pose>
+      <moveable>true</moveable>
+      <grasps>
+        <gc type="side">
+          <template>1.000 0.000 0.000 0.000 0.000 1.000 0.000 0.000 0.000 0.000 1.000 0.120</template>
+          <axis>0.0 0.0 1.0</axis>
+        </gc>
+      </grasps>
+      <sop>
+        <template>1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0</template>
+        <axis>0.0 0.0 1.0</axis>
+        <distance>0.0</distance>
+      </sop>
+    </obj>
+  </objects>
+  <robots>
+    <robot>
+      <name>pr2</name>
+      <urdf>models/pr2.urdf</urdf>
+      <basepose>1.000 0.000 0.000 0.000 0.000 1.000 0.000 0.000 0.000 0.000 1.000 0.000</basepose>
+      <movebase>true</movebase>
+      <torso>0.1</torso>
+      <controllable_joints>
+        <joint name="l_shoulder_pan_joint">0.5</joint>
+        <joint name="l_shoulder_lift_joint">0.0</joint>
+        <joint name="l_upper_arm_roll_joint">0.0</joint>
+        <joint name="l_forearm_roll_joint">-0.16</joint>
+        <joint name="l_elbow_flex_joint">0.0</joint>
+        <joint name="l_wrist_flex_joint">-0.11</joint>
+        <joint name="l_wrist_roll_joint">0.0</joint>
+        <joint name="r_shoulder_pan_joint">0.5</joint>
+        <joint name="r_shoulder_lift_joint">0.0</joint>
+        <joint name="r_upper_arm_roll_joint">0.0</joint>
+        <joint name="r_forearm_roll_joint">-0.16</joint>
+        <joint name="r_elbow_flex_joint">0.0</joint>
+        <joint name="r_wrist_flex_joint">-0.11</joint>
+        <joint name="r_wrist_roll_joint">0.0</joint>
+      </controllable_joints>
+    </robot>
+  </robots>
+  <workspace_bounds>
+    <x>
+      <low>-2.75</low>
+      <high>2.75</high>
+    </x>
+    <y>
+      <low>-2.75</low>
+      <high>2.75</high>
+    </y>
+    <z>
+      <low>0.0</low>
+      <high>5.54</high>
+    </z>
+  </workspace_bounds>
+</problem>
