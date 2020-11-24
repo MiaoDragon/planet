@@ -478,7 +478,7 @@ int main(int argc, char* argv[]) {
         disc_sol_file << std::endl;
     }    
     std::ofstream cfg_file(cfg_filename, std::ios_base::out);
-    cfg_file << "robot_space_idx: " << conf_space->robot_space_idx << std::endl:
+    cfg_file << "robot_space_idx: " << conf_space->robot_space_idx << std::endl;
     cfg_file << "joint_space_idx: " << conf_space->joint_space_idx << std::endl;
     cfg_file << "objects_space_idx: " << conf_space->objects_space_idx << std::endl;
     cfg_file << "num_objects: " << conf_space->num_objects << std::endl;
