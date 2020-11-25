@@ -302,11 +302,11 @@ int main(int argc, char* argv[]) {
     planner->setProblemDefinition(problem_def);
     log->info("Dim is: {}", domain.num_eqclass_dims + domain.num_symbolic_dims);
     planner->setNearestNeighbors<planner::nn::CompositeNearestNeighbors>();
-    double time_limit = 500.0;
+    double time_limit = 300.0;
     std::chrono::high_resolution_clock::time_point start;
     std::chrono::high_resolution_clock::time_point end;
     int iters                   = -1;
-    const unsigned int MAX_TIME = problem_config->get_as<unsigned int>("timeout").value_or(520);
+    const unsigned int MAX_TIME = problem_config->get_as<unsigned int>("timeout").value_or(320);
     do {
       log->info("Attempting to plan for {}s...", time_limit);
       start = std::chrono::high_resolution_clock::now();
