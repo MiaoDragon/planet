@@ -28,10 +28,19 @@
 
 #include "debug.hh"
 
+#include "goal.hh"
+#include <cmath>
+// NN related
+#include <string>
+#include <torch/torch.h>
+#include <torch/script.h>
+
 namespace planner::sampler {
 namespace ob    = ompl::base;
 namespace spec  = input::specification;
 namespace scene = input::scene;
+namespace goal  = planner::goal;
+
 using namespace planner::util;
 
 // Needed for goal sampling
@@ -56,6 +65,7 @@ class TampSampler : public ob::StateSampler {
               const spec::Domain* const domain,
               const structures::robot::Robot* const robot
               IF_ACTION_LOG((, std::shared_ptr<debug::GraphLog> graph_log)));
+  void sample(ob::State* state);
   void sampleUniform(ob::State* state) override;
   void sampleUniformNear(ob::State* state, const ob::State* near, double distance) override;
   void sampleGaussian(ob::State* state, const ob::State* mean, double stdDev) override;
@@ -66,6 +76,12 @@ class TampSampler : public ob::StateSampler {
   static std::mutex universe_mutex;
   static unsigned int NUM_SOLVER_TRIES;
   static double COIN_BIAS;
+  static int NEURAL_SAMPLE;  // whether to use neural sample or not
+
+
+  // neural networks
+  void set_nn_model(const std::string& model_path, const int device);
+  void set_start_goal_tensor(const ob::State* start_state, const goal::CompositeGoal* goal);
 
  protected:
   ob::StateSamplerPtr robot_config_sampler;
@@ -77,6 +93,10 @@ class TampSampler : public ob::StateSampler {
                                 bool copy_uni,
                                 bool update_sg_objs);
   void heuristic_sample(ob::State* state);
+
+  // neural networks
+  void neural_sample(ob::State* state);
+
 
  private:
   static unsigned int sampler_count;
@@ -113,6 +133,14 @@ class TampSampler : public ob::StateSampler {
   std::unique_ptr<symbolic::predicate::LuaEnv<bool>> correctness_env;
   std::unique_ptr<symbolic::predicate::LuaEnv<double>> gradient_env;
   IF_ACTION_LOG(std::shared_ptr<debug::GraphLog> graph_log;)
+
+  // neural networks
+  std::shared_ptr<torch::jit::script::Module> SMP;
+  torch::Tensor start_tensor;
+  torch::Tensor goal_tensor;
+  int gpu_device = 0;
+  const double pi = 3.141592653589793;
+  const double x_limit = 2.75, y_limit = 2.75, z_limit = 5.54;
 };
 
 ob::StateSamplerPtr allocTampSampler(const ob::StateSpace* space,

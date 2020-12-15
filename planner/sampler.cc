@@ -362,4 +362,232 @@ void TampSampler::cleanup() const {
   correctness_env->cleanup();
   gradient_env->cleanup();
 }
+
+
+
+// neural networks
+void TampSampler::set_nn_model(const std::string& model_path, const int device)
+{
+    this->SMP.reset(new torch::jit::script::Module(torch::jit::load(model_path)));
+    this->SMP->to(at::Device("cuda:")+std::to_string(device));
+    this->gpu_device = device;
+}
+
+void TampSampler::sample(ob::State* state)
+{
+    if (TampSampler::NEURAL_SAMPLE)
+    {
+        neural_sample(state);
+    }
+    else
+    {
+        sampleUniform(state);
+    }
+}
+
+void TampSampler::neural_sample(ob::State* state)
+{
+    // use the start and goal conditions
+    // randomly sample the distance ratio during sampling
+    std::vector<double> ratio = {rng_.uniform01()};
+    torch::Tensor ratio_tensor = torch::from_blob(ratio.data(), {1, 1}).clone();
+    ratio_tensor = ratio_tensor.to(at::Device("cuda:"+std::to_string(this->gpu_device)));
+    torch::Tensor cond_tensor = torch.cat({start_tensor, goal_tensor, ratio_tensor}, 1);
+    auto smp_output = SMP->forward(cond_tensor);
+    torch::Tensor res = smp_output.toTensor().to(at::kCPU);
+    auto res_a = res.accessor<double,2>();
+    std::vector<double> state_vec;
+    for (unsigned i=0; i < 72; i++)
+    {
+        state_vec.push_back(res_a[0][i]);
+    }
+    int idx = 0;
+    // unnormalize and map back
+    const auto& robot_state = state->as<ob::CompoundState>(robot_space_idx);
+    // Robot: Base subspace (if exists)
+    log->debug("putting robot base subspace...");
+    if (robot_space->hasSubspace(planner::cspace::BASE_SPACE)) {
+        const auto& base_state =
+        robot_state->as<planner::cspace::RobotBaseSpace::StateType>(robot_space->getSubspaceIndex(planner::cspace::BASE_SPACE));
+        // print out the base state, which is RobotBaseSpace::StateType
+        base_state->setX(state_vec[idx] * x_limit); idx++;
+        base_state->setY(state_vec[idx] * y_limit); idx++;
+        base_state->setZ(state_vec[idx] * z_limit); idx++;
+        base_state->rotation().value = state_vec[idx] * pi; idx++;
+    }
+    log->debug("putting continuous joint subspace...");
+    // Robot: Continuous joints subspaces
+    for (unsigned subspace_idx = 0; subspace_idx < robot_space->getSubspaceCount(); subspace_idx++)
+    {
+        // check to make sure the name is not BASE_SPACE or other Joint_Space
+        if (subspace_idx == robot_space->getSubspaceIndex(planner::cspace::BASE_SPACE) || 
+            subspace_idx == robot_space->getSubspaceIndex(planner::cspace::JOINT_SPACE))
+        {
+            continue;
+        }
+        // otherwise we add it to the joint values
+        const auto& joint_state = robot_state->as<ob::SO2StateSpace::StateType>(subspace_idx);
+        joint_state->value = state_vec[idx] * pi; idx++;
+    }
+    log->debug("putting other joint subspace...");
+    // Robot: Other joints subspaces
+    const auto joint_space_idx = robot_space->getSubspaceIndex(planner::cspace::JOINT_SPACE);
+    const auto& joints_state   = robot_state->as<planner::cspace::RobotJointSpace::StateType>(joint_space_idx);
+    const auto& joints_space   = robot_space->getSubspace(joint_space_idx)->as<planner::cspace::RobotJointSpace>();
+    for (unsigned int joint_state_i = 0; joint_state_i < joints_space->getDimension(); ++joint_state_i) {
+        joints_state->value[joint_state_i] = state_vec[idx] * pi; idx++;
+    }
+
+    log->debug("putting object subspace...");
+    // Objects subspace
+    const auto& objects_state = state->as<ob::CompoundState>(objects_space_idx);
+    for (unsigned int obj_i = 0; obj_i < objects_space->getSubspaceCount(); ++obj_i) {
+        const auto& object_state = objects_state->as<planner::cspace::ObjectSpace::StateType>(obj_i);
+        // order: X, Y, Z, quaternion (x, y, z, w)
+        object_state->setX(state_vec[idx] * x_limit); idx++;
+        object_state->setY(state_vec[idx] * y_limit); idx++;
+        object_state->setZ(state_vec[idx] * z_limit); idx++;
+        // normalize the quarternion
+        double sum_quat = 0.;
+        double qx = state_vec[idx]; idx++;
+        double qy = state_vec[idx]; idx++;
+        double qz = state_vec[idx]; idx++;
+        double qw = state_vec[idx]; idx++;
+        sum_quat = std::sqrt(qx * qx + qy * qy + qz * qz + qw * qw);
+        if (sum_quat < 0.000000001)
+        {
+            // consider to be too small, reset quaternion
+            qx = 0.; qy = 0.; qz = 0.; qw = 1.; 
+        }
+        else
+        {
+            qx = qx / sum_quat; qy = qy / sum_quat; qz = qz / sum_quat; qw = qw / sum_quat;
+        }
+        object_state->rotation().x = qx;
+        object_state->rotation().y = qy;
+        object_state->rotation().z = qz;
+        object_state->rotation().w = qw;
+    }
+
+    log->debug("Writing universe subspace...");
+    // Universe subspace
+    const auto& universe_state = state->as<ob::CompoundState>(eqclass_space_idx);
+    for (unsigned int uni_i = 0; uni_i < universe_space->getSubspaceCount(); ++uni_i) {
+        const auto& uni_i_state = universe_state->as<planner::cspace::DiscreteSpace::StateType>(uni_i);
+        uni_i_state->value = (int) state_vec[idx]; idx++;
+    }
+
+    log->debug("Writing config subspace...");
+    // Config subspace
+    const auto& config_state = state->as<ob::CompoundState>(discrete_space_idx);
+    for (unsigned int config_i = 0; config_i < discrete_space->getSubspaceCount(); ++config_i) {
+        const auto& config_i_state = config_state->as<planner::cspace::DiscreteSpace::StateType>(config_i);
+        config_i_state->value = (int) state_vec[idx]; idx++;
+    }
+
+}
+
+void TampSampler::set_start_goal_tensor(const ob::State* state, const goal::CompositeGoal* goal)
+{
+    // start_state -> vector
+    std::vector<double> start_state_vec;
+
+    // load the vector from state type
+    const auto& robot_state = state->as<ob::CompoundState>(robot_space_idx);
+    // Robot: Base subspace (if exists)
+    log->debug("putting robot base subspace...");
+    if (robot_space->hasSubspace(planner::cspace::BASE_SPACE)) {
+        const auto& base_state =
+        robot_state->as<planner::cspace::RobotBaseSpace::StateType>(robot_space->getSubspaceIndex(planner::cspace::BASE_SPACE));
+        // print out the base state, which is RobotBaseSpace::StateType
+        start_state_vec.push_back(base_state->getX() / x_limit);
+        start_state_vec.push_back(base_state->getY() / y_limit);
+        start_state_vec.push_back(base_state->getZ() / z_limit);
+        start_state_vec.push_back(base_state->rotation().value / pi);
+    }
+    log->debug("putting continuous joint subspace...");
+    // Robot: Continuous joints subspaces
+    for (unsigned subspace_idx = 0; subspace_idx < robot_space->getSubspaceCount(); subspace_idx++)
+    {
+        // check to make sure the name is not BASE_SPACE or other Joint_Space
+        if (subspace_idx == robot_space->getSubspaceIndex(planner::cspace::BASE_SPACE) || 
+            subspace_idx == robot_space->getSubspaceIndex(planner::cspace::JOINT_SPACE))
+        {
+            continue;
+        }
+        // otherwise we add it to the joint values
+        const auto& joint_state = robot_state->as<ob::SO2StateSpace::StateType>(subspace_idx);
+        start_state_vec.push_back(joint_state->value / pi);
+    }
+    log->debug("putting other joint subspace...");
+    // Robot: Other joints subspaces
+    const auto joint_space_idx = robot_space->getSubspaceIndex(planner::cspace::JOINT_SPACE);
+    const auto& joints_state   = robot_state->as<planner::cspace::RobotJointSpace::StateType>(joint_space_idx);
+    const auto& joints_space   = robot_space->getSubspace(joint_space_idx)->as<planner::cspace::RobotJointSpace>();
+    for (unsigned int joint_state_i = 0; joint_state_i < joints_space->getDimension(); ++joint_state_i) {
+        start_state_vec.push_back(joints_state->value[joint_state_i] / pi);
+    }
+
+    log->debug("putting object subspace...");
+    // Objects subspace
+    const auto& objects_state = state->as<ob::CompoundState>(objects_space_idx);
+    for (unsigned int obj_i = 0; obj_i < objects_space->getSubspaceCount(); ++obj_i) {
+        const auto& object_state = objects_state->as<planner::cspace::ObjectSpace::StateType>(obj_i);
+        // order: X, Y, Z, quaternion (x, y, z, w)
+        start_state_vec.push_back(object_state->getX() / x_limit);
+        start_state_vec.push_back(object_state->getY() / y_limit);
+        start_state_vec.push_back(object_state->getZ() / z_limit);
+        start_state_vec.push_back(object_state->rotation().x);
+        start_state_vec.push_back(object_state->rotation().y);
+        start_state_vec.push_back(object_state->rotation().z);
+        start_state_vec.push_back(object_state->rotation().w);
+    }
+
+    log->debug("Writing universe subspace...");
+    // Universe subspace
+    const auto& universe_state = state->as<ob::CompoundState>(eqclass_space_idx);
+    for (unsigned int uni_i = 0; uni_i < universe_space->getSubspaceCount(); ++uni_i) {
+        const auto& uni_i_state = universe_state->as<planner::cspace::DiscreteSpace::StateType>(uni_i);
+        start_state_vec.push_back(uni_i_state->value);
+    }
+
+    log->debug("Writing config subspace...");
+    // Config subspace
+    const auto& config_state = state->as<ob::CompoundState>(discrete_space_idx);
+    for (unsigned int config_i = 0; config_i < discrete_space->getSubspaceCount(); ++config_i) {
+        const auto& config_i_state = config_state->as<planner::cspace::DiscreteSpace::StateType>(config_i);
+        start_state_vec.push_back(config_i_state->value);
+    }
+
+    // convert from vector to tensor
+    start_tensor = torch::from_blob(start_state_vec.data(), {1, 72}).clone();
+
+    // goal: symbolic vector
+    std::vector<double> uni_sig(universe_space->getSubspaceCount(), 0); // initialize to be not satisfied
+    std::vector<double> config_sig(discrete_space->getSubspaceCount(), 0);
+    // set the signature values by using domain->eqclass_dimension_ids and launch_config
+    for (const auto& [formula, branch_config] : *goal) {
+        for (const auto& [dim_str, val] : branch_config) {
+            if (fplus::map_contains(domain->eqclass_dimension_ids, dim_str))
+            {
+                // set the value as the goal
+                uni_sig[(domain->eqclass_dimension_ids.at(dim_str))] = val;
+            } 
+            else
+            {
+                config_sig[(domain->discrete_dimension_ids.at(dim_str))] = val;
+            }
+        }
+    }
+    // convert from vector to tensor
+    torch::Tensor uni_tensor = torch::from_blob(uni_sig.data(), {1, universe_space->getSubspaceCount()}).clone();
+    torch::Tensor config_tensor = torch::from_blob(config_sig.data(), {1, discrete_space->getSubspaceCount()}).clone();
+    goal_tensor = torch.cat({uni_tensor, config_tensor}, 1);
+    
+    // transfer memory to CUDA
+    start_tensor = start_tensor.to(at::Device("cuda:"+std::to_string(this->gpu_device)));
+    goal_tensor = goal_tensor.to(at::Device("cuda:"+std::to_string(this->gpu_device)));
+}
+
+
 }  // namespace planner::sampler

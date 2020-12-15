@@ -231,6 +231,10 @@ int main(int argc, char* argv[]) {
   sampler::TampSampler::COIN_BIAS = hyperparams->get_as<double>("coin_bias").value_or(0.3);
   planner::util::GOAL_WEIGHT      = hyperparams->get_as<double>("goal_weight").value_or(4.0);
 
+  sampler::TampSampler::NEURAL_SAMPLE = 
+  hyperparams->get_as<int>("neural_sample").value_or(0);
+
+
   planner::util::UniverseMap universe_map(init_atoms,
                                           initial_state.get(),
                                           init_sg,
